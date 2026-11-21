@@ -1,11 +1,7 @@
-# Architektura biblioteki
+# Architektura lib-track
 
-[ARCHITECTURE.md](../../ARCHITECTURE.md) jest krótkim przeglądem systemu. Szczegóły przechowuj wyłącznie tutaj, nie powielając kontraktów `contracts/api.json`.
+[Przegląd architektury](../../ARCHITECTURE.md) · [Komponenty](components.md) · [Przepływ danych](data-flow.md) · [Dystrybucja](distribution.md).
 
-- [Komponenty](components.md): rzeczywiste moduły, granice i API.
-- [Przepływy](data-flow.md): wejścia, serializacja, wyjścia i uprawnienia.
-- [Dystrybucja](distribution.md): build, pakiet, instalacja i wydanie.
-- [ADR](../adr/README.md): uzasadnienia istotnych decyzji.
-- [Model zagrożeń](../security/threat-model.md): ryzyka i dowody kontroli.
+Planowany rdzeń obsługuje stany obiektów i ścieżki, a nie dostarczanie obserwacji z sensorów. Szczegóły formatu: [kontrakt](../contracts.md).
 
-**Stan: NOT_IMPLEMENTED.** Wraz z pierwszym działającym modułem podaj rzeczywistą ścieżkę kodu, kontrakt, test i wspierane środowisko. Nie opisuj planu jako zweryfikowanej implementacji.
+**PROPOSED / NOT_IMPLEMENTED.**

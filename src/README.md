@@ -1,5 +1,3 @@
-# Kod źródłowy
+# Planowane źródła
 
-Docelowy układ zależy od platformy; ten katalog nie zawiera działającego produktu.
-W przypadku UPM poprawnym korzeniem może być `Runtime/` i `Editor/`, dla Androida `app/src`, dla web `src/`, a dla Pythona `src/<package>/`.
-Pozostań przy jednym kanonicznym właścicielu źródeł.
+Moduły biblioteki są opisane w katalogu [lib_track](lib_track/README.md). Aktualnie repozytorium nie zawiera importowalnego pakietu i nie udostępnia API śledzenia.
