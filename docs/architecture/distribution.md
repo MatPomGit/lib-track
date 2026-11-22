@@ -1,9 +1,7 @@
-# Budowanie, pakowanie i dystrybucja
+# Dystrybucja
 
-**Stan: NOT_RELEASED.** W szablonie nie wybrano menedżera pakietów ani registry.
+Docelowo pakiet Python `lib-track`, źródła w `src/lib_track/`. Na tym etapie brak modułów importowalnych, `pyproject.toml`, builda, wheel i wydania.
 
-Po wyborze profilu npm, Maven, NuGet, Python, Unity UPM lub OCI udokumentuj rzeczywisty runtime, wersje, narzędzia build, manifest/lockfile, licencje, hashe i metadane pakietu. Przetestuj instalację w czystym środowisku i zgodność z odbiorcami.
+Przed dystrybucją: licencja, deterministyczne zależności, testy API i numeryki, clean-install, analiza bezpieczeństwa i osobne potwierdzenie praw do dystrybucji. Testy z rzeczywistymi sensorami oraz zgodność z ROS2/Unity/Unreal nie mogą być domniemywane z testów offline.
 
-**Nie utożsamiaj** zielonego CI, zbudowanego artefaktu, podpisanego release, publikacji do registry oraz zweryfikowanego wdrożenia. Każdy etap wymaga odrębnego dowodu i uprawnień.
-
-Powiązania: [wydania](../releases.md), [supply-chain](../security/supply-chain.md), [runbook](../operations/runbook.md).
+Publikacja Pages i Release wymaga odrębnej zgody.

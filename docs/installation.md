@@ -1,5 +1,5 @@
 # Instalacja
 
-Uzupełnij **po** wdrożeniu konkretnego stosu technologicznego. Opisz wymagania systemu, instrukcję środowiska izolowanego, sposób użycia stabilnego wydania i sprawdzenie checksum.
-Przykłady mają używać przypiętej wersji, tagu lub SHA, nie przypadkowego HEAD.
-Zależności nie są instalowane automatycznie podczas walidacji szablonu.
+Obecnie **brak pakietu do instalacji**. Repozytorium posiada dokumentację i katalogi przyszłych modułów, ale nie zawiera implementacji, manifestu Python ani gotowego wydania.
+
+Po implementacji: określone wersje zależności, instalacja z przypiętego tagu/SHA, test clean-install i minimalna reprodukcja na syntetycznych danych. Konfiguracje sprzętu pozostają w rejestrze `devices`.

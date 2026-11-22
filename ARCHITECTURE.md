@@ -1,19 +1,25 @@
-# Architektura biblioteki
+# Architektura lib-track
 
-**Status:** szablon nie zawiera gotowego produktu. Identyfikatory i komponenty należy zdefiniować przed implementacją.
+`lib-track` zapewni dziedzinowo neutralną warstwę śledzenia w czasie: obserwacje z detektora → kojarzenie międzyklatkowe → filtr stanu ruchu → zarządzanie trajektoriami → ocena jakości.
 
-- **Source of truth:** to repozytorium jest jedynym właścicielem kodu i publicznego kontraktu.
-- **Upstream:** zależności przypięte do wersji i SHA/digest; aktualność sprawdzana przez Research Autopilot.
-- **Downstream:** `msc-*` i inne narzędzia odwołują się do wydania lub ustalonego SHA, nie kopiują źródeł.
-- **Boundary:** adaptery sprzętowe, rendering i I/O oddzielone od logiki domenowej, gdy dotyczy.
-- **Reproduce:** zdefiniowany lockfile, wersje zależności i parametry.
-- **Audit live:** odczyt aktualnego HEAD i porównanie z przypiętym SHA. Zmiany via PR, bez cichego nadpisywania.
+```text
+Camera / LiDAR / pose detector / ROS2 / synthetic observations
+                       |
+                  detections
+                       |
+                core + geometry
+                       |
+             association + motion
+                       |
+               trajectories
+                       |
+                 evaluation
+                       |
+          consumer (robot / XR / experiment)
+```
 
-Pełne kontrakty i macierz środowisk opisano w `docs/` i `config/component.json`.
+Obserwacje są dostarczane przez konsumenta lub istniejące biblioteki. `lib-track` nie odczytuje kamer, nie uruchamia modeli detekcyjnych, nie steruje aktuatorami ani nie utrzymuje infrastruktury agenta. Własność generowania klatek ma `lib-vis`, transportu ROS2 `lib-ros`, interpretacji spojrzenia `lib-eye`, a kontraktów sprzętu prywatny `devices`.
 
+Wspólny kontrakt wymaga jawnego identyfikatora strumienia, monotonicznego timestampu wraz z `clock_domain`, `frame_id`, jednostki pozycji, jawnej informacji o dostępności niepewności oraz przejść statusów tracku. Brak kowariancji oznacza niepewność nieznaną, a kojarzenie pomiarów z różnych zegarów wymaga zweryfikowanej transformacji czasów. Funkcje wymagające kalibracji lub transformacji między układami odniesienia nie mogą jej domniemywać.
 
-## Dokumentacja rozwijanej biblioteki
-
-Po powstaniu kodu opisz **realne** moduły, publiczne API, wersje ABI, granice I/O i adaptery w [components](docs/architecture/components.md), [data-flow](docs/architecture/data-flow.md) i [distribution](docs/architecture/distribution.md). [ADR](docs/adr/README.md) zapisują uzasadnienia decyzji, a [model zagrożeń](docs/security/threat-model.md) rzeczywiste ryzyka i dowody ich kontroli.
-
-Publikacja dokumentacji jako GitHub Pages korzysta **wyłącznie** z `pages/`, nigdy z `docs/` ([polityka](docs/pages.md)). Brak wdrożonej funkcji oznacza stan `NOT_IMPLEMENTED`, a nie domyślny `PASS`.
+Wszystkie katalogi `src/lib_track/` są obecnie **dokumentacją planu**, nie kodem wykonywalnym. Szczegóły: [komponenty](docs/architecture/components.md), [przepływy](docs/architecture/data-flow.md), [kontrakt](docs/contracts.md) i [ADR-0004](docs/adr/0004-tracking-boundaries.md).

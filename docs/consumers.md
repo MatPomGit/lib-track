@@ -1,5 +1,11 @@
-# Odbiorcy i zależności
+# Potencjalni odbiorcy
 
-Wymień znane repozytoria `msc-*`, `app-*` i `lib-*`, które rzeczywiście wykorzystują komponent.
-Dla każdego zapisz `repository`, `version/tag/SHA`, rodzaj integracji, kontrakt i plan migracji.
-Nie wpisuj fikcyjnych odbiorców dla spełnienia szablonu. Brak odbiorcy jest zgodnym statusem projektu rozwojowego.
+| System | Planowane użycie | Stan |
+| --- | --- | --- |
+| `alf-light-tracking` | Śledzenie plamki światła, interfejs ROS2 | PROPOSED |
+| `lib-vis` | Obserwacje geometryczne z obrazów | PROPOSED |
+| `lib-ros` | Pozycje, czas i transformacje robotów | PROPOSED |
+| `lib-exp` | Trajektorie w eksperymentach | PROPOSED |
+| `arc-hri`, `arc-robo`, `arc-xr` | Analiza ruchu obiektów i awatarów | PROPOSED |
+
+Brak potwierdzonych konsumentów, wersji i testów zgodności. Integracja z `alf-light-tracking` nie oznacza automatycznej migracji jego kodu do `lib-track`.
