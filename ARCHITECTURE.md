@@ -20,6 +20,6 @@ Camera / LiDAR / pose detector / ROS2 / synthetic observations
 
 Obserwacje są dostarczane przez konsumenta lub istniejące biblioteki. `lib-track` nie odczytuje kamer, nie uruchamia modeli detekcyjnych, nie steruje aktuatorami ani nie utrzymuje infrastruktury agenta. Własność generowania klatek ma `lib-vis`, transportu ROS2 `lib-ros`, interpretacji spojrzenia `lib-eye`, a kontraktów sprzętu prywatny `devices`.
 
-Wspólny kontrakt wymaga jawnego identyfikatora strumienia, monotonicznego timestampu, `frame_id`, jednostki pozycji, niepewności oraz przejść statusów tracku. Funkcje wymagające kalibracji lub transformacji między układami odniesienia nie mogą jej domniemywać.
+Wspólny kontrakt wymaga jawnego identyfikatora strumienia, monotonicznego timestampu wraz z `clock_domain`, `frame_id`, jednostki pozycji, jawnej informacji o dostępności niepewności oraz przejść statusów tracku. Brak kowariancji oznacza niepewność nieznaną, a kojarzenie pomiarów z różnych zegarów wymaga zweryfikowanej transformacji czasów. Funkcje wymagające kalibracji lub transformacji między układami odniesienia nie mogą jej domniemywać.
 
 Wszystkie katalogi `src/lib_track/` są obecnie **dokumentacją planu**, nie kodem wykonywalnym. Szczegóły: [komponenty](docs/architecture/components.md), [przepływy](docs/architecture/data-flow.md), [kontrakt](docs/contracts.md) i [ADR-0004](docs/adr/0004-tracking-boundaries.md).
