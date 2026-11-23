@@ -14,7 +14,9 @@ Testy należy wykonywać na syntetycznych, deterministycznych ścieżkach, a nas
 
 Raport: exact SHA, wersje pakietów i backendu, plik fixture, definicja metryki, wynik `PASS/FAIL/NOT_RUN` i ograniczenia. Trwały runner nie wykonuje niezaufanych PR.
 
-Kontrole aktualnego szkieletu:
+Pierwszy zaimplementowany moduł `TrackObservation` ma testy jednostkowe tworzenia niemutowalnych obserwacji, walidacji identyfikatorów, skończoności czasu i geometrii, granic confidence, niedozwolonych typów i kształtów oraz bardzo dużych liczb całkowitych. Testy te nie sprawdzają kojarzenia klatek ani wyników śledzenia. Wynik testów jest ważny wyłącznie dla SHA wskazanego w danym przebiegu CI.
+
+Kontrole aktualnego kodu źródłowego i szkieletu:
 
 ```bash
 python scripts/validate_repository.py --phase scaffold
