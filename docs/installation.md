@@ -1,5 +1,11 @@
 # Instalacja
 
-Obecnie **brak pakietu do instalacji**. Repozytorium posiada dokumentację i katalogi przyszłych modułów, ale nie zawiera implementacji, manifestu Python ani gotowego wydania.
+Nie ma jeszcze dystrybuowanego pakietu `lib-track` ani konfiguracji `pyproject.toml`. Dostępny jest eksperymentalny, importowalny ze źródeł `TrackObservation`, ale pełne algorytmy śledzenia nie zostały zaimplementowane.
 
-Po implementacji: określone wersje zależności, instalacja z przypiętego tagu/SHA, test clean-install i minimalna reprodukcja na syntetycznych danych. Konfiguracje sprzętu pozostają w rejestrze `devices`.
+Na Pythonie 3.11+ w katalogu repozytorium można wykonać testy źródeł, bez instalowania zależności:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+Testy dodają katalog `src/` do ścieżki modułów. Nie jest to walidacja instalacji pakietu. Wydanie wymaga manifestu PEP 517/518, budowy wheel/sdist, clean-install w pustym środowisku, testu importu i przeglądu licencji oraz zależności. Konfiguracje sprzętu pozostają w prywatnym rejestrze `devices`.
