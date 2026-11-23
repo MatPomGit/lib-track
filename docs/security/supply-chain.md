@@ -1,6 +1,6 @@
 # Bezpieczeństwo łańcucha dostaw
 
-**Stan: NOT_CONFIGURED.** Nie istnieje gotowy pakiet ani realny rejestr zależności.
+**Stan: NOT_CONFIGURED / NOT_RELEASED.** Zaimplementowany `TrackObservation` używa wyłącznie bibliotek standardowych Pythona (`dataclasses`, `math`); nie istnieje manifest ani gotowy pakiet dystrybucyjny. Brak zależności zewnętrznych w tym module nie stanowi wykonanego audytu całego łańcucha dostaw.
 
 Po wyborze ekosystemu dokumentuj wszystkie zależności bezpośrednie i przechodnie, ich źródła, licencje, wersje, artefakty i uzasadnione wyjątki. Użyj lockfile i weryfikacji integralności adekwatnej do npm, Maven, NuGet, Pythona, Unity UPM lub OCI. Jeżeli transitive lock jest niemożliwy, opisz ograniczenie.
 
