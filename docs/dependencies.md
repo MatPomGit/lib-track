@@ -4,4 +4,4 @@ Planowany rdzeń Python ma zachować możliwie małe zależności. NumPy/SciPy m
 
 Tracking to warstwa kojarzenia i aktualizacji stanu, a nie dostawca modeli detekcyjnych. Ani biblioteka, ani jej dystrybucja nie powinny zawierać wag modeli, prywatnych nagrań czy cudzych SDK bez osobnego przeglądu licencji.
 
-Żadna zależność nie jest jeszcze wybrana lub zainstalowana w projekcie. **AUDIT NOT_RUN**.
+Pierwszy zaimplementowany moduł `TrackObservation` używa tylko `dataclasses` i `math` z biblioteki standardowej. Nie wybrano dodatkowych zależności runtime, a projekt nie ma manifestu pakietu ani lockfile. **Audyt zależności przechodnich i licencji pakietu: NOT_RUN.**
