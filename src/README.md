@@ -1,3 +1,3 @@
-# Planowane źródła
+# Źródła biblioteki
 
-Moduły biblioteki są opisane w katalogu [lib_track](lib_track/README.md). Aktualnie repozytorium nie zawiera importowalnego pakietu i nie udostępnia API śledzenia.
+W katalogu [lib_track](lib_track/README.md) znajduje się pierwsza implementacja: `core/observation.py` z eksperymentalnym `TrackObservation`. Inne moduły są nadal planowane. Brak manifestu budowy pakietu i potwierdzonej dystrybucji.
