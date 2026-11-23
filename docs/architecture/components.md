@@ -2,7 +2,7 @@
 
 | Moduł | Własność | Status |
 | --- | --- | --- |
-| `lib_track.core` | Schemat obserwacji, detekcji i stanu śledzenia | PLANNED |
+| `lib_track.core` | Eksperymentalny `TrackObservation` 2D; stany śledzenia nadal planowane | PARTIAL / IMPLEMENTED |
 | `lib_track.detections` | Normalizacja detekcji 2D/3D, punktów kluczowych i pomiarów | PLANNED |
 | `lib_track.association` | Kojarzenie detekcji ze ścieżkami i utrzymanie identyfikatorów | PLANNED |
 | `lib_track.motion` | Predykcja stanu i filtrowanie trajektorii | PLANNED |
@@ -12,4 +12,4 @@
 
 Algorytmy są projektowane niezależnie od OpenCV, ROS2, Unity i Unreal, aby nie wymagać tych środowisk do podstawowych testów. Śledzenie nie zakłada identyfikacji biometrycznej osoby. Adapters sprzętowe powinny mapować dane z zachowaniem pochodzenia i znaczników czasu.
 
-Nie istnieje jeszcze importowalny kod. [Kontrakty](../contracts.md) są propozycją, a nie publicznym API.
+`lib_track.core.observation.TrackObservation` jest importowalnym, eksperymentalnym API źródłowym. Pozostałe kontrakty są propozycją. Zobacz [kontrakt](../contracts.md).

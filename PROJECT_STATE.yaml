@@ -4,15 +4,16 @@ repository_type: lib
 component_id: lib-track
 programme: research-autopilot
 owner: MatPomGit
-updated: 2026-11-21
-lifecycle: scaffold
-evidence_status: not_run
+updated: 2026-11-23
+lifecycle: development
+evidence_status: partial
 device_validation_status: not_applicable
 pages_status: not_configured
 release_status: not_released
 source_version: 0.1.0
-next_action: implement_observation_and_track_contract
+next_action: implement_track_state_and_association_contract
 blockers:
-  - no_executable_library
+  - tracking_pipeline_not_implemented
   - choose_license_before_distribution
   - tracking_e2e_not_run
+  - wheel_build_and_clean_install_not_run
