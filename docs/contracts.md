@@ -1,22 +1,22 @@
-# Planowany kontrakt śledzenia
+# Kontrakt śledzenia
 
-**Status: PROPOSED / NOT_IMPLEMENTED.** `contracts/api.json` ma puste `public_entrypoints`, ponieważ żadna klasa nie została jeszcze zaimplementowana.
+**Status: EXPERIMENTAL / PARTIALLY_IMPLEMENTED / NOT_RELEASED.** Kanoniczne `contracts/api.json` rejestruje jeden publiczny symbol: `lib_track.core.observation.TrackObservation`. Pozostałe typy oraz asocjacja obserwacji nie są zaimplementowane.
 
-| Typ | Planowane pola |
-| --- | --- |
-| `TrackObservation` | `observation_id`, `stream_id`, `timestamp_monotonic_s`, `clock_domain`, `frame_id`, `geometry`, `measurement_covariance?`, `confidence?` |
-| `TrackState` | `track_id`, `timestamp_monotonic_s`, `clock_domain`, `position`, `velocity?`, `covariance?`, `status`, `source` |
-| `TrackTrajectory` | `track_id`, `states[]`, `start_s`, `end_s?`, `lifecycle_status` |
-| `CoordinateFrame` | `frame_id`, `units`, `transform_ref?`, `calibration_ref?` |
-| `TrackingMetrics` | `metric_name`, `value`, `definition`, `matching_policy`, `dataset_ref` |
-| `TrackingError` | `code`, `retryable`, `details?` |
+| Typ | Status | Pola |
+| --- | --- | --- |
+| `TrackObservation` | IMPLEMENTED (eksperymentalny) | `observation_id: str`, `stream_id: str`, `timestamp_monotonic_s: float`, `clock_domain: str`, `frame_id: str`, `geometry_px: tuple[float, float]`, `confidence: float | None = None` |
+| `TrackState` | PROPOSED | `track_id`, `timestamp_monotonic_s`, `clock_domain`, `position`, `velocity?`, `covariance?`, `status`, `source` |
+| `TrackTrajectory` | PROPOSED | `track_id`, `states[]`, `start_s`, `end_s?`, `lifecycle_status` |
+| `CoordinateFrame` | PROPOSED | `frame_id`, `units`, `transform_ref?`, `calibration_ref?` |
+| `TrackingMetrics` | PROPOSED | `metric_name`, `value`, `definition`, `matching_policy`, `dataset_ref` |
+| `TrackingError` | PROPOSED | `code`, `retryable`, `details?` |
 
-Układ obrazu ma jednostkę px, współrzędne przestrzenne zasadniczo m; orientacja i przestrzeń odniesienia muszą być opisane jawnie. `timestamp_monotonic_s` ma jednostkę sekundy i oznacza czas obserwacji, nie chwilę wykonania inferencji. `track_id` to lokalny identyfikator obiektu w jednej sesji, nie identyfikator osoby.
+`TrackObservation` przyjmuje dwuelementową krotkę współrzędnych `geometry_px` wyrażonych w pikselach, nie dowolną geometrię 2D/3D. Pola identyfikatorów muszą być niepustymi napisami. Znacznik czasu, obie współrzędne oraz niepusty `confidence` muszą być skończonymi liczbami typu `int` lub `float`, z wyłączeniem `bool`. Wartości całkowite przekraczające zakres konwersji na `float` są odrzucane przez `ValueError`. `confidence` może wynosić `None` (nieznana pewność) albo należeć do przedziału [0, 1]. Nie są normalizowane białe znaki identyfikatorów. Klasa używa `dataclass(frozen=True, slots=True)`, ale nie narzuca unikalności identyfikatorów ani monotonicznej kolejności pomiarów w strumieniu.
 
-**Domeny czasu.** `timestamp_monotonic_s` jest monotoniczny wyłącznie w obrębie `clock_domain` (identyfikatora zegara i jego epoki). Samo `stream_id` nie oznacza wspólnego zegara. Kojarzenie obserwacji z różnych domen wymaga jawnie skonfigurowanej transformacji czasu do jednej domeny odniesienia (offset, opcjonalny dryf, przedział ważności, maksymalna niepewność synchronizacji i tolerancja kojarzenia). Brak transformacji, przekroczona tolerancja lub nieznana epoka powodują `TIMEBASE_MISMATCH` i odrzucenie kojarzenia, nie ciche porównanie timestampów. Obsługę próbek out-of-order określa odbiorca, bez automatycznej reinterpretacji zegara.
+`timestamp_monotonic_s` reprezentuje sekundę w lokalnej domenie zegara `clock_domain` (zegar wraz z epoką), a nie czas wykonania inferencji. Obecny konstruktor sprawdza skończoność pojedynczej wartości, lecz nie weryfikuje zgodności zegarów ani kolejności kolejnych próbek. Samo `stream_id` nie ustanawia wspólnej domeny. Przyszłe kojarzenie obserwacji z różnych zegarów wymaga jawnej transformacji czasu, z uwzględnieniem offsetu, ewentualnego dryfu, przedziału ważności i tolerancji. Odrzucenie niezgodności jako `TIMEBASE_MISMATCH` należy do planowanej warstwy asocjacji.
 
-**Niepewność pomiarowa.** `measurement_covariance?` reprezentuje macierz kowariancji w jednostkach kwadratowych i układzie geometrii obserwacji. Brak pola oznacza `unknown`, nigdy kowariancję zerową. Taką obserwację wolno odrzucić z jawnym błędem albo przetwarzać algorytmem niewymagającym kowariancji, lecz nie wolno konstruować fikcyjnej macierzy. Analogicznie brak `TrackState.covariance?` oznacza nieznaną niepewność, a nie pewny stan; `confidence?` jest odrębną wielkością dostawcy i nie jest automatycznie wariancją. Jednostki, wymiar, symetria i dodatnia półokreśloność dostępnej macierzy wymagają walidacji.
+W aktualnym `TrackObservation` nie istnieje pole `measurement_covariance`. Nie wolno interpretować jego braku jako kowariancji zerowej ani przeliczać `confidence` na wariancję. W przyszłym rozszerzeniu niepewność będzie reprezentowana w jednostkach kwadratowych układu odniesienia i walidowana pod kątem wymiaru, symetrii i dodatniej półokreśloności. Analogicznie brak `TrackState.covariance` w planowanym kontrakcie oznacza niepewność nieznaną.
 
-Docelowe błędy: `INVALID_GEOMETRY`, `TIMEBASE_MISMATCH`, `FRAME_MISMATCH`, `OUT_OF_ORDER`, `UNSUPPORTED_OBSERVATION`, `TRACK_TERMINATED`. Nie wolno domniemywać metryk lub confidence, których backend nie dostarczył.
+`TrackState`, `TrackingError` i kody `INVALID_GEOMETRY`, `TIMEBASE_MISMATCH`, `FRAME_MISMATCH`, `OUT_OF_ORDER`, `UNSUPPORTED_OBSERVATION`, `TRACK_TERMINATED` są projektowane, a nie zaimplementowane. Dzisiaj niepoprawne pola `TrackObservation` powodują `ValueError`. Brak transformacji 2D/3D i nie należy domniemywać kalibracji.
 
-Zgodność API i wersjonowanie zostaną utrwalone przy pierwszej implementacji. Zmiana niekompatybilna po udostępnieniu publicznego API wymaga zgodnie z [AGENTS.md](../AGENTS.md) aktualizacji MAJOR (SemVer), opisu migracji oraz testów kompatybilności odbiorców; nie wolno uznać samego numeru schematu za dowód zgodności.
+Wersja `0.1.0` jest eksperymentalnym kontraktem źródłowym, bez wydania pakietu. Zgodność `contracts/api.json`, `config/component.json` i `PROJECT_STATE.yaml` musi być utrzymywana. Niezgodne zmiany udostępnionego API wymagają aktualizacji wersji SemVer, opisu migracji i testów odbiorców, zgodnie z [AGENTS.md](../AGENTS.md).
