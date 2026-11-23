@@ -1,7 +1,7 @@
 # core
 
-Schemat obserwacji, detekcji i stanu śledzenia.
+Moduł `core` zawiera zaimplementowany, eksperymentalny `TrackObservation` w `observation.py`. Jest to niemutowalny model pojedynczego punktu 2D w pikselach, zawierający identyfikatory obserwacji i strumienia, `timestamp_monotonic_s`, `clock_domain`, `frame_id`, `geometry_px` oraz opcjonalny `confidence`. Konstruktor waliduje typy, skończoność liczb i przedział pewności, zgłaszając `ValueError` przy niepoprawnych danych.
 
-`TrackObservation` przenosi `observation_id`, `stream_id`, czas, `frame_id`, geometrię i jakość detekcji. `TrackState` przenosi stabilny, lokalny `track_id`, stan ruchu, niepewność i cykl życia ścieżki. `track_id` nie jest rozpoznawaniem tożsamości osoby i nie powinien mieć semantyki trwałego identyfikatora biometrycznego.
+`TrackState` i mechanizm nadawania stabilnego, lokalnego `track_id`, aktualizacja stanu ruchu, niepewność oraz cykl życia ścieżki są nadal planowane. `track_id` nie będzie trwałym identyfikatorem biometrycznym osoby.
 
-**Status: PLANNED / NOT_IMPLEMENTED.** [Planowany kontrakt](../../../docs/contracts.md) i [walidacja](../../../docs/testing.md).
+**Status: PARTIAL / EXPERIMENTAL / NOT_RELEASED.** [Kontrakt](../../../docs/contracts.md) i [testy](../../../docs/testing.md).
